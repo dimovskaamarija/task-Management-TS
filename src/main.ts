@@ -1,11 +1,11 @@
 import { Task, TaskLists } from "./model";
 
-let containers = document.querySelectorAll<HTMLDivElement>(".container-item");
-let addTaskButton = document.getElementById("addTaskButton") as HTMLButtonElement;
-let input = document.getElementById("addInput") as HTMLInputElement;
-let todo = document.getElementById("toDoList") as HTMLUListElement;
-let inProgress = document.getElementById("inProgressList") as HTMLUListElement;
-let done = document.getElementById("doneList") as HTMLUListElement;
+const containers = document.querySelectorAll<HTMLDivElement>(".container-item");
+const addTaskButton = document.getElementById("addTaskButton") as HTMLButtonElement;
+const input = document.getElementById("addInput") as HTMLInputElement;
+const todo = document.getElementById("toDoList") as HTMLUListElement;
+const inProgress = document.getElementById("inProgressList") as HTMLUListElement;
+const done = document.getElementById("doneList") as HTMLUListElement;
 
 let tasks: TaskLists = {
     todo: [],
@@ -79,8 +79,8 @@ function addNewTask(task: Task, list: HTMLUListElement): void {
 
 addTaskButton.addEventListener("click", (e) => {
     e.preventDefault();
-    const value = input.value.trim();
-    if (!value) return;
+    const value = input.value.trim().toString();
+    if (!value) { return; }
 
     const newTask: Task = {
         id: Math.random().toString(36),
@@ -103,7 +103,15 @@ containers.forEach((container) => {
         e.preventDefault();
         const draggedElement = document.querySelector(".dragStyle") as HTMLLIElement | null;
         if (draggedElement) {
-            container.querySelector("ul")?.appendChild(draggedElement);
+            const newList = container.querySelector("ul");
+            newList?.appendChild(draggedElement);
+            const taskName = draggedElement.textContent?.replace("Delete", "").trim() || "";
+            const newState = container.id === "toDoList" ? "todo" : 
+                             container.id === "inProgressList" ? "inProgress" : "done";
+            const taskToUpdate = tasks[newState].find(task => task.taskName === taskName);
+            if (taskToUpdate) {
+                taskToUpdate.state = newState;
+            }
             saveTasks();
         }
     });

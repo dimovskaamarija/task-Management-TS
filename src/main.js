@@ -62,9 +62,10 @@ function addNewTask(task, list) {
 }
 addTaskButton.addEventListener("click", function (e) {
     e.preventDefault();
-    var value = input.value.trim();
-    if (!value)
+    var value = input.value.trim().toString();
+    if (!value) {
         return;
+    }
     var newTask = {
         id: Math.random().toString(36),
         taskName: value,
@@ -84,7 +85,17 @@ containers.forEach(function (container) {
         e.preventDefault();
         var draggedElement = document.querySelector(".dragStyle");
         if (draggedElement) {
-            (_a = container.querySelector("ul")) === null || _a === void 0 ? void 0 : _a.appendChild(draggedElement);
+            var newList = container.querySelector("ul");
+            if (newList) {
+                newList.appendChild(draggedElement);
+            }
+            var taskName_1 = ((_a = draggedElement.textContent) === null || _a === void 0 ? void 0 : _a.replace("Delete", "").trim()) || "";
+            var newState = container.id === "toDoList" ? "todo" :
+                container.id === "inProgressList" ? "inProgress" : "done";
+            var taskToUpdate = tasks[newState].find(function (task) { return task.taskName === taskName_1; });
+            if (taskToUpdate) {
+                taskToUpdate.state = newState;
+            }
             saveTasks();
         }
     });
