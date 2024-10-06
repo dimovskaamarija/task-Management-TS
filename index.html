@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management</title>
+    <link href="style.css" rel="stylesheet">
+   
+</head>
+<body>  
+    <h1>Task Management</h1>
+    <div class="page">
+        <div id="add"> 
+            <input id="addInput" type="text" placeholder="Add new To Do Item:">
+            <button  id="addTaskButton">Add Task</button>
+        </div>
+        
+        <div class="containers">
+            <div class="container-item">
+                <h3>TO DO:</h2>
+                <div class="TODO" id="TODO">
+                    <ul id="toDoList">
+                        <!-- <li class="task" draggable="true">Dentist appointment
+                            <button class="btnDelete">Delete</button>
+                        </li>
+                        <li class="task" draggable="true">Buy Groceries
+                            <button class="btnDelete">Delete</button>
+                        </li>
+                        
+                        <li class="task" draggable="true">Wash car
+                            <button class="btnDelete">Delete</button>
+                        </li> -->
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="container-item">
+                <h3>IN PROGRESS:</h2>
+                <div class="PROGRESS" id="PROGRESS">
+                    <ul id="inProgressList"></ul>
+                </div>
+            </div>
+            
+            <div class="container-item">
+                <h3>DONE:</h2>
+                <div class="DONE" id="DONE">
+                    <ul id="doneList"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>var exports = {};</script>
+<script src="./src/main.js" defer></script>
+</html>
